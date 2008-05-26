@@ -2,8 +2,8 @@ $:.reject! { |e| e.include? 'TextMate' } # FIXME - fix paths in TextMate
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
-require 'test/spec'
-require 'test/spec/rails'
+# require 'test/spec'
+# require 'test/spec/rails'
 require 'mocha'
 
 require 'pp'

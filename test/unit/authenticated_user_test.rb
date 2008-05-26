@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AuthenticatedUserTest < Test::Unit::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
   # Then, you can remove it from this and the functional test.
-  include AuthenticatedTestHelper
+  # include AuthenticatedTestHelper
   scenario :user_authentication, :root => false
 
   def test_should_create_user
@@ -102,8 +102,9 @@ class AuthenticatedUserTest < Test::Unit::TestCase
   end
 
 protected
-  def create_user(options = {})
+  def create_user(overrides = {})
     User.create({ :name => 'Quire', :login => 'quire', :email => 'quire@example.com',
-                  :password => 'quire', :password_confirmation => 'quire' }.merge(options))
+                  :password => 'quire', :password_confirmation => 'quire'
+                }.merge(overrides))
   end
 end
