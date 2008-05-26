@@ -1,0 +1,80 @@
+<% mode = nil unless local_assigns.has_key?(:mode) -%>
+<div class="hentry" id="<%= dom_id(article) %>">
+  <h2 class="entry-title"><%= link_to_article(article) %></h2>
+  <div class="vcard">
+    <p>&mdash; <%= article.published_at.strftime "%B %e, %Y at %H:%M %Z" %></p>
+  </div>
+  <br class="clear" />
+  
+  <div class="entry-content">
+<% if mode == :list -%>
+<!-- begin body -->
+<%= markdown article.body %>
+<% unless article.extended.blank? %>
+<p><a href="<%= post_path(*article.post_path_params) %>">Continue reading...</a></p>
+<% end %>
+<!-- end body -->
+<% else -%>
+<!-- begin content -->
+<%= markdown article.content %>
+<!-- end content -->
+<% end -%>
+  </div>
+  
+<% if article.post? %>
+  <p class="meta"><%= pluralize(article.comments_count, "comment") %> &mdash; <%= links_to_tags article.tags %></p>
+
+<% if mode != :list -%>
+  <h5><a name="comments">Comments</a></h5>
+  <ol id="comments" class="comments">
+<%= render :partial => "comment", :collection => article.comments %>
+  </ol>
+  
+  <% if article.allows_comments? -%>
+    <% form_for [article, article.comments.new] do |comment_form| %>
+      <fieldset>
+        <legend>Add Comment</legend>
+        <p>
+          <%= comment_form.text_field :author_name, :tabindex => 1 %>
+          <label class="text" for="comment_author">Name</label>
+        </p>
+        <p>
+          <%= comment_form.text_field :author_email, :tabindex => 2 %>
+          <label class="text" for="comment_author_email">Email Address (not shown)</label>
+        </p>
+        <p>
+          <%= comment_form.text_field :author_url, :tabindex => 3 %>
+          <label class="text" for="comment_author_url">Website</label>
+        </p>
+        <p>
+          <%= comment_form.text_area :body, :style => "width:0px; height:0px; margin:0; border:0; padding:0;" %><br />
+          <%= comment_form.text_area :tofu, :tabindex => 4 %><br />
+          <small>Comments are styled using <a href="http://daringfireball.net/projects/markdown/">Markdown</a>.</small>
+        </p>
+        <div class="formactions">
+          <input type="button" value="Preview comment" id="preview_button" />
+        </div>
+        <br />
+        <div id="preview" style="display:none">
+          <ol class="comments">
+            <li class="comment preview">
+              <div class="author">
+                <cite><span id="comment_preview_author" class="author"><em>Your name</em></span></cite>
+              </div>
+              <div id="comment_preview_body" class="content">
+                <em>Your pithy comments...</em>
+              </div>
+            </li>
+          </ol>
+          <div class="formactions">
+            <input type="submit" value="Post comment" class="submit" />
+          </div>
+        </div>
+      </fieldset>
+    <% end %>
+  <% else %>
+    <p>Sorry, comments for this article are closed.</p>
+  <% end %>
+<% end %>
+<% end %>
+</div>

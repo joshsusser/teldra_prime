@@ -1,0 +1,6 @@
+<h2>Comments</h2>
+<ul id="comments" class="comments">
+  <%= render :partial => "comment", :collection => @comments %>
+</ol>
+
+<%= will_paginate @comments %>

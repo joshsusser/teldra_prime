@@ -1,0 +1,16 @@
+welcome_meta:
+  tag: meta
+  article: welcome
+  created_at: <%= 10.days.ago.to_s :db %>
+update_meta:
+  tag: meta
+  article: update
+  created_at: <%= 6.days.ago.to_s :db %>
+goodbye_meta:
+  tag: meta
+  article: goodbye
+  created_at: <%= 5.days.ago.to_s :db %>
+new_release_release:
+  tag: release
+  article: new_release
+  created_at: <%= 5.days.ago.to_s :db %>

@@ -1,0 +1,15 @@
+  <li id="<%= dom_id(comment) %>" class="stripe-<%= cycle('even', 'odd') %>">
+    comment <%= comment.article.comments.index(comment) + 1 %> of <%= comment.article.comments_count %>
+    in <%= link_to h(comment.article.title), post_path(*comment.article.post_path_params) %><br/>
+    <blockquote><%= h comment.body %></blockquote>
+    by  <%= h if_blank(comment.author_name, "(no name)") %> &mdash;
+        <%= h if_blank(comment.author_email, "(no email)") %> &mdash;
+        <%= h if_blank(comment.author_url, "(no url)") %> [<%= if_blank(comment.author_ip, "no IP") %>]
+    at <%= comment.created_at.to_s(:db) %>
+    <br/>
+      <% p = comment.article.post_path_params %>
+      <%= link_to "View", post_path(p[0], p[1], p[2], p[3],
+                    :anchor => dom_id(comment)), :title => "view" %>
+      <%= link_to "Delete", admin_comment_path(comment),
+                    :method => :delete, :confirm => "Delete comment?", :title => "delete" %>
+  </li>

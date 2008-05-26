@@ -1,0 +1,22 @@
+--- 
+defaults:
+  install_options: "--include-dependencies --no-rdoc --no-ri"
+gems: 
+- name: BlueCloth
+  version: 1.0.0
+- name: chronic
+  version: 0.2.3
+- name: has_finder
+  version: 0.1.5
+- name: highline
+  version: 1.4.0
+- name: mocha
+  version: 0.5.5
+- name: rake
+  version: 0.8.0
+- name: redgreen
+  version: 1.2.2
+- name: termios
+  version: 0.9.4
+- name: test-spec
+  version: 0.4.0

@@ -1,0 +1,5 @@
+<ul id="tags">
+<% @tags.each do |tag| -%>
+  <li><%= link_to h(tag.name), tag_path(tag) %> (<%= tag.taggings_count %>)</li>
+<% end -%>
+</ul>

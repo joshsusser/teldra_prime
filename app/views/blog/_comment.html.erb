@@ -1,0 +1,10 @@
+    <li class="comment <%= comment.presentation_class %>" id="<%= dom_id(comment) %>">
+      <a name="<%= dom_id(comment) %>"></a>
+      <div class="author">
+        <cite><span class="author"><%= comment.author_link %></span></cite> &#150; 
+        <abbr title="<%= comment.created_at.to_s(:db) %>"><span class="date"><%= comment.created_at.to_s(:db) %></span></abbr>
+      </div>
+      <div class="content">
+        <%= markdown(comment.body) %>
+      </div>
+    </li>

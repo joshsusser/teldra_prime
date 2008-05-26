@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <title><%= h doc_title %></title>
+  <%= stylesheet_link_tag 'blog' %>
+</head>
+
+<body>
+
+<div id="container">
+  <div id="header">
+    <h1><span><a href="/">Teldra</a></span></h1>
+    <h2>the danceable demo version</h2>
+  </div>
+
+  <div id="page">
+    <div id="content">
+<%= flash_div %>
+<%= yield %>
+    </div>
+
+    <div id="sidebar">
+      <div class="sidebar-node search" id="search">
+        <form action="<%= search_path %>" id="search_form" method="get" name="search_form">
+          <p><input type="text" id="q" name="q" value="search" onfocus="this.value = '';" /></p>
+        </form>
+      </div>
+
+      <div class="sidebar-node" id="about">
+        <h3>About</h3>
+        <p>Demo software for <em>The Great Test Framework Dance-off</em> presentation at RailsConf 2008 by Josh Susser</p>
+        <p><a href="/page/copyright">Copyright</a></p>
+      </div>
+
+      <div class="sidebar-node" id="tag_cloud">
+        <h3>Tags</h3>
+        <p id="tags"><%= tag_cloud %></p>
+      </div>
+
+    </div>
+
+    <div class="clear" />
+  </div>
+
+  <div id="footer">
+    <hr />
+    <p><a href="/"><%= SITE_TITLE %></a></p>
+    <ul>
+      <li>powered by Teldra /
+          styled with <a href="http://quotedprintable.com/pages/scribbish">scribbish</a></li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

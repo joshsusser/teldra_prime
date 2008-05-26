@@ -1,0 +1,10 @@
+<h1>New Article</h1>
+<%= link_to 'List', admin_articles_path %>
+
+<%= error_messages_for :article %>
+
+<% form_for([:admin, @article]) do |form| %>
+<%= render :partial => 'form', :object => form %>
+<p><%= form.submit "Create" %></p>
+<% end %>
+

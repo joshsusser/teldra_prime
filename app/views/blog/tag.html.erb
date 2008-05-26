@@ -1,0 +1,10 @@
+<h2 class="tag">Articles tagged by <em><%= h @tag.name %></em></h2>
+
+<p class="clean_link"><a href="<%= tag_feed_path(@tag) %>"><%= image_tag("feed16x16.png") %> Subscribe</a> to feed for this tag.</p>
+
+<dl class="results">
+<% @articles.each do |article| -%>
+  <dt><%= link_to_article(article) %></dt>
+  <dd class="meta"><%= article.published_at.strftime("%Y-%m-%d") %> <%= links_to_tags article.tags %></dd>
+<% end -%>
+</dl>

@@ -1,0 +1,16 @@
+  <dl>
+    <dt>Title</dt>
+    <dd><%= form.text_field :title %></dd>
+    <dt>Slug</dt>
+    <dd><%= form.text_field :slug %></dd>
+    <dt>Tags</dt>
+    <dd><%= form.text_field :tag_list %></dd>
+    <dt>Kind</dt>
+    <dd><%= form.select :kind, [["Post", Article::POST], ["Page", Article::PAGE]] %></dd>
+    <dt>Comment period</dt>
+    <dd><%= form.select :comment_period, comment_period_options %></dd>
+    <dt>Body</dt>
+    <dd><%= form.text_area :body %></dd>
+    <dt>Extended Body</dt>
+    <dd><%= form.text_area :extended %></dd>
+  </dl>

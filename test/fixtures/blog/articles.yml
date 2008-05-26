@@ -1,0 +1,74 @@
+about:
+  kind: 1
+  user: admin
+  slug: about
+  title: About this blog
+  body: This blog is awesome.
+  extended: 
+  comment_period: 0
+  comments_count: 0
+  created_at: <%= 12.days.ago.to_s :db %>
+  updated_at: <%= 12.days.ago.to_s :db %>
+  published_at: <%= 12.days.ago.to_s :db %>
+
+draft:
+  kind: 0
+  user: admin
+  slug: draft
+  title: Draft
+  body: draft body
+  extended: 
+  comment_period: -1
+  comments_count: 0
+  created_at: <%= 7.days.ago.to_s :db %>
+  updated_at: <%= 7.days.ago.to_s :db %>
+  published_at: 
+
+welcome:
+  kind: 0
+  user: admin
+  slug: welcome
+  title: Welcome
+  body: welcome body
+  extended: 
+  comment_period: 7
+  comments_count: 4
+  created_at: <%= 10.days.ago.to_s :db %>
+  updated_at: <%= 10.days.ago.to_s :db %>
+  published_at: <%= 10.days.ago.to_s :db %>
+update:
+  kind: 0
+  user: admin
+  slug: update
+  title: Update
+  body: update body
+  extended: this one has *lots* of **extended** content
+  comment_period: 30
+  comments_count: 0
+  created_at: <%= 8.days.ago.to_s :db %>
+  updated_at: <%= 6.days.ago.to_s :db %>
+  published_at: <%= 6.days.ago.to_s :db %>
+new_release:
+  kind: 0
+  user: admin
+  slug: new-release
+  title: New Release
+  body: There's a new release of Teldra.
+  extended: Download it now.
+  comment_period: -1
+  comments_count: 0
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  published_at: <%= 5.days.ago.to_s :db %>
+goodbye:
+  kind: 0
+  user: admin
+  slug: goodbye
+  title: Goodbye
+  body: goodbye body
+  comment_period: 0
+  comments_count: 0
+  extended: 
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  published_at: <%= 5.days.ago.to_s :db %>

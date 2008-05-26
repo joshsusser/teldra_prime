@@ -1,0 +1,20 @@
+tagged_ruby:
+  tag: ruby
+  article: tagged
+  created_at: <%= 10.minutes.ago.to_s :db %>
+tagged_rails:
+  tag: rails
+  article: tagged
+  created_at: <%= 20.minutes.ago.to_s :db %>
+welcome_chocolate:
+  tag: chocolate
+  article: welcome
+  created_at: <%= 21.minutes.ago.to_s :db %>
+welcome_sanfrancisco:
+  tag: san_francisco
+  article: welcome
+  created_at: <%= 22.minutes.ago.to_s :db %>
+goodbye_sanfrancisco:
+  tag: san_francisco
+  article: goodbye
+  created_at: <%= 23.minutes.ago.to_s :db %>

@@ -1,0 +1,40 @@
+untagged:
+  kind: 0
+  user: admin
+  slug: untagged
+  title: Untagged
+  body: untagged body
+  extended: 
+  created_at: <%= 1.day.ago.to_s :db %>
+  updated_at: <%= 1.hour.ago.to_s :db %>
+  published_at: <%= 1.hour.ago.to_s :db %>
+tagged:
+  kind: 0
+  user: admin
+  slug: tagged
+  title: Tagged
+  body: tagged body
+  extended: 
+  created_at: <%= 2.days.ago.to_s :db %>
+  updated_at: <%= 2.hours.ago.to_s :db %>
+  published_at: <%= 2.hours.ago.to_s :db %>
+welcome:
+  kind: 0
+  user: admin
+  slug: welcome
+  title: Welcome
+  body: welcome body
+  extended: 
+  created_at: <%= 1.day.ago.to_s :db %>
+  updated_at: <%= 1.hour.ago.to_s :db %>
+  published_at: <%= 1.day.ago.to_s :db %>
+goodbye:
+  kind: 0
+  user: admin
+  slug: goodbye
+  title: Goodbye
+  body: goodbye body
+  extended: 
+  created_at: <%= 1.day.ago.to_s :db %>
+  updated_at: <%= 1.hour.ago.to_s :db %>
+  published_at: <%= 1.hour.ago.to_s :db %>

@@ -1,0 +1,32 @@
+stranger_welcome:
+  article: welcome
+  user: 
+  author_name: Beautiful Stranger
+  author_email: beautiful@stranger.com
+  author_url: http://stranger.stranger.com
+  body: Great blog!
+  created_at: <%= 9.days.ago.to_s :db %>
+admin_welcome:
+  article: welcome
+  user: admin
+  author_name: Adminstrator
+  author_email: 
+  author_url: 
+  body: Thank you very much.
+  created_at: <%= 8.days.ago.to_s :db %>
+stalker_welcome:
+  article: welcome
+  user: 
+  author_name: Your Stalker
+  author_email: stalker@test.com
+  author_url: 
+  body: I love reading every word you write.
+  created_at: <%= 7.days.ago.to_s :db %>
+stalker2_welcome:
+  article: welcome
+  user: 
+  author_name: Your Stalker
+  author_email: stalker@test.com
+  author_url: 
+  body: When are you going to write more?
+  created_at: <%= 6.days.ago.to_s :db %>

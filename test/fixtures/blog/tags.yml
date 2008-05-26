@@ -1,0 +1,8 @@
+meta:
+  name: meta
+  taggings_count: 3
+  created_at: <%= 10.days.ago.to_s :db %>
+release:
+  name: release
+  taggings_count: 1
+  created_at: <%= 5.days.ago.to_s :db %>

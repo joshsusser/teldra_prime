@@ -1,0 +1,1 @@
+SITE_TITLE = "has_many :through"

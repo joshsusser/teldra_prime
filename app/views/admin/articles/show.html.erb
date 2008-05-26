@@ -1,0 +1,32 @@
+<h2>Article</h2>
+<%= link_to 'List', admin_articles_path %> |
+<%= link_to 'Edit', edit_admin_article_path(@article) %> |
+<%= link_to 'Delete', admin_article_path(@article), :method => :delete, :confirm => "Delete this article?" %>
+<dl>
+  <dt>Title</dt>
+  <dd><%= if_blank(h(@article.title), "-") %></dd>
+  <dt>Slug</dt>
+  <dd><%= if_blank(h(@article.slug), "-") %></dd>
+  <dt>Tags</dt>
+  <dd><%= if_blank(h(@article.tag_list), "-") %></dd>
+  <dt>Kind</dt>
+  <dd><%= %w(Post Page)[@article.kind] %></dd>
+  <dt>Comment period</dt>
+  <dd><%= comment_period_options.detect { |opt| opt.last == @article.comment_period }.first rescue "bad value" %></dd>
+  <dt>Body</dt>
+  <dd><%= @article.body.blank? ? "-" : markdown(@article.body) %></dd>
+  <dt>Extended Body</dt>
+  <dd><%= @article.extended.blank? ? "-" : markdown(@article.extended) %></dd>
+  <dt>Published at</dt>
+  <dd><%= @article.published_at.nil? ? "never" : @article.published_at.to_s(:db) %></dd>
+  <dt>Created at</dt>
+  <dd><%= @article.created_at.nil? ? "never" : @article.created_at.to_s(:db) %></dd>
+  <dt>Updated at</dt>
+  <dd><%= @article.updated_at.nil? ? "never" : @article.updated_at.to_s(:db) %></dd>
+</dl>
+
+<h3>Comments</h3>
+
+<ul id="comments" class="comments">
+  <%= render :partial => "admin/comments/comment", :collection => @comments %>
+</ol>

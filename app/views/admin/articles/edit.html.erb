@@ -1,0 +1,11 @@
+<h1>Edit Article</h1>
+<%= link_to 'List', admin_articles_path %> |
+<%= link_to 'Show', [:admin, @article] %>
+
+<%= error_messages_for :article %>
+
+<% form_for([:admin, @article]) do |form| %>
+<%= render :partial => 'form', :object => form %>
+<%= form.submit "Save new version", :id => nil %>
+<%= form.submit "Save and keep same version", :id => nil %>
+<% end %>

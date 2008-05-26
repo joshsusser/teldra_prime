@@ -1,0 +1,6 @@
+<dl class="article_list">
+<% article_list.each do |article| -%>
+  <dt><%= link_to_article(article) %></dt>
+  <dd class="meta"><%= article.published_at.strftime("%Y-%m-%d") %> <%= links_to_tags article.tags %></dd>
+<% end -%>
+</dl>
