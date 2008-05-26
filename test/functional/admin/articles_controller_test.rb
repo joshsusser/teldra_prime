@@ -1,20 +1,20 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
-describe "Admin::ArticlesController" do
+class Admin::ArticlesControllerTest < ActionController::TestCase
   scenario :basic
   
-  setup do
-    use_controller Admin::ArticlesController
+  def setup
+    super
     login_as :admin
   end
   
-  it "should get index" do
+  def test_should_get_index
     get :index
     assert_response :success
     assert_not_nil assigns(:articles)
   end
   
-  it "should show article with comments" do
+  def test_should_show_article_with_comments
     get :show, :id => articles(:body_post).id
     assert_response :success
     assert_not_nil assigns(:article)

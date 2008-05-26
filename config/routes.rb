@@ -15,8 +15,6 @@ ActionController::Routing::Routes.draw do |map|
                        :controller => 'blog', :action => 'create_comment',
                        :conditions => { :method => :post }
 
-  # map.stylesheet 'stylesheets/:action.:format', :controller => 'stylesheets'
-
   map.connect 'admin', :controller => 'admin/panel', :action => 'index'
   map.panel 'admin/panel', :controller => 'admin/panel', :action => 'index'
   map.namespace :admin, :prefix => '' do |admin|

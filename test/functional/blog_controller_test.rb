@@ -1,13 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-describe "BlogController" do
+class BlogControllerTest < ActionController::TestCase
   scenario :blog
 
-  setup do
-    use_controller BlogController
-  end
-
-  it "should show archives in index view" do
+  def test_should_show_archives_in_index_view
     get :index
     assert_not_nil assigns(:archives)
     assert_select "ul#archives" do
@@ -15,7 +11,7 @@ describe "BlogController" do
     end
   end
 
-  it "should not show meta section on Page view" do
+  def test_should_not_show_meta_section_on_page_view
     about = articles(:about)
     post :page, :slug => about.slug
     assert_response :success
@@ -23,7 +19,7 @@ describe "BlogController" do
     assert_select 'ul.meta', false
   end
 
-  it "should show meta section on Post view" do
+  def test_should_show_meta_section_on_post_view
     welcome = articles(:welcome)
     year, month, day, slug = *welcome.post_path_params
     post :show, :year => year, :month => month, :day => day, :slug => slug
@@ -32,7 +28,7 @@ describe "BlogController" do
     assert_select 'p.meta'
   end
  
-  it "should not show comments on Page view" do
+  def test_should_not_show_comments_on_page_view
     about = articles(:about)
     post :page, :slug => about.slug
     assert_response :success
@@ -40,7 +36,7 @@ describe "BlogController" do
     assert_select 'ol#comments', false
   end
   
- it "should show comments on Post view" do
+ def test_should_show_comments_on_post_view
     welcome = articles(:welcome)
     year, month, day, slug = *welcome.post_path_params
     post :show, :year => year, :month => month, :day => day, :slug => slug
@@ -49,59 +45,46 @@ describe "BlogController" do
     assert_select 'ol#comments'
   end
 
-  it "should list all tags that have articles" do
+  def test_should_list_all_tags_that_have_articles
     tags = Tag.find_all_popular
     get :tags
     assert_equal tags, assigns(:tags)
   end
   
-  it "should list recent articles for a tag" do
+  def test_should_list_recent_articles_for_a_tag
     tag = tags(:meta)
     get :tag, :tag => tag.name
     assert_equal tag.articles.recent, assigns(:articles)
   end
 
-end
+  # sidebar
 
-describe "BlogController sidebar" do
-  scenario :blog
-
-  setup do
-    use_controller BlogController
-  end
-  
-  it "should show search box" do
+  def test_should_show_search_box
     get :index
     assert_select "div#search input#q"
   end
   
-  it "should return search results" do
+  def test_should_return_search_results
     get :search, :q => "body"
     assert_template "results"
     assert_not_nil assigns(:articles)
   end
 
-  it "should return empty results for blank query" do
+  def test_should_return_empty_results_for_blank_query
     get :search, :q => ""
     assert_template "results"
     assert_equal [], assigns(:articles)
   end
 
-  it "should show tags in tag cloud" do
+  def test_should_show_tags_in_tag_cloud
     get :index
     assert_not_nil assigns(:tag_cloud)
     assert_select "p#tags"
   end
-end
 
-describe "BlogController entering new comment" do
-  scenario :blog
+  # entering new comment
 
-  setup do
-    use_controller BlogController
-  end
-
-  it "should create new comment on Post view" do
+  def test_should_create_new_comment_on_post_view
     update_post = articles(:update)
     assert_difference('Comment.count') do
       assert_difference('update_post.comments.count') do
@@ -119,8 +102,8 @@ describe "BlogController entering new comment" do
     assert !new_comment.author_ip.blank?
     assert_select "li#comment_#{new_comment.id}"
   end
-  
-  it "should not create new comment on spammy submission" do
+
+  def test_should_not_create_new_comment_on_spammy_submission
     update_post = articles(:update)
     assert_no_difference('Comment.count') do
       assert_no_difference('update_post.comments.count') do
@@ -129,13 +112,13 @@ describe "BlogController entering new comment" do
         end
       end
     end
-  
+
     assert_redirected_to post_path(*assigns(:article).post_path_params)
   end
-  
-  it "should set user_id of logged in author on comment creation" do
+
+  def test_should_set_user_id_of_logged_in_author_on_comment_creation
     update_post = articles(:update)
-    
+
     post :create_comment, :article_id => update_post.to_param, :comment => comment_options
     assert_nil assigns(:comment).user_id
 
@@ -151,35 +134,29 @@ describe "BlogController entering new comment" do
       :tofu => "Slack off! Quit your job!"
     }.merge(options)
   end
-end
 
-describe "BlogController feed" do
-  scenario :blog
+  # feed
 
   ATOM_CONTENT_TYPE = "application/atom+xml; charset=utf-8"
 
-  setup do
-    use_controller BlogController
-  end
-
-  it "should respond to main atom feed request with atom xml document" do
+  def test_should_respond_to_main_atom_feed_request_with_atom_xml_document
     get :index, :format => 'atom'
     assert_equal ATOM_CONTENT_TYPE, @response.headers["type"]
     assert_select "entry", assigns(:articles).size
   end
 
-  it "should respond to tag atom feed request with atom xml document" do
+  def test_should_respond_to_tag_atom_feed_request_with_atom_xml_document
     get :tag, :tag => 'meta', :format => 'atom'
     assert_equal ATOM_CONTENT_TYPE, @response.headers["type"]
     assert_select "entry", assigns(:articles).size
   end
 
-  it "should respond with 404 for a non-existent tag feed" do
+  def test_should_respond_with_404_for_a_non_existent_tag_feed
     get :tag, :tag => 'meat', :format => 'atom'
     assert_response :not_found
   end
   
-  it "should not load sidebar data for atom feeds" do
+  def test_should_not_load_sidebar_data_for_atom_feeds
     get :index, :format => 'atom'
     assert_nil assigns(:tag_cloud)
     assert_nil assigns(:archives)

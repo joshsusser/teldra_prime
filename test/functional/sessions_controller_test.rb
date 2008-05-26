@@ -3,10 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SessionsControllerTest < ActionController::TestCase
   scenario :user_authentication
 
-  def setup
-    super
-  end
-
   def test_should_login_and_redirect
     post :create, :login => 'quentin', :password => 'test'
     assert session[:user_id]

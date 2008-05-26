@@ -1,14 +1,14 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
-describe "Admin::CommentsController" do
+class Admin::CommentsControllerTest < ActionController::TestCase
   scenario :blog
-
-  setup do
-    use_controller Admin::CommentsController
+  
+  def setup
+    super
     login_as :admin
   end
 
-  it "should list all comments in reverse chron order" do
+  def test_should_list_all_comments_in_reverse_chron_order
     get :index
     assert_response :success
     assert_nil assigns(:article)
@@ -16,7 +16,7 @@ describe "Admin::CommentsController" do
     assert_equal Comment.count, assigns(:comments).size
   end
 
-  it "should list all comments in reverse chron order with pagination" do
+  def test_should_list_all_comments_in_reverse_chron_order_with_pagination
     welcome = articles(:new_release)
     100.times { welcome.comments.create(:author_name => "Bob", :body => "Slack off!") }
     get :index, :page => 2
@@ -26,7 +26,7 @@ describe "Admin::CommentsController" do
     assert_equal Comment.per_page, assigns(:comments).size
   end
 
-  it "should delete a comment" do
+  def test_should_delete_a_comment
     comment = comments(:stalker_welcome)
     assert_difference 'Comment.count', -1 do
       get :destroy, :id => comment.id
