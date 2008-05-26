@@ -1,1 +1,1 @@
-SITE_TITLE = "has_many :through"
+SITE_TITLE = "The Great Test Framework Dance-off"
