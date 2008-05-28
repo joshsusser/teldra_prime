@@ -18,7 +18,7 @@ describe Article do
     end
   end
 
-  describe "Finding posts with #find_post_by_date_and_slug" do
+  describe "#find_post_by_date_and_slug" do
     scenario :blog
 
     it "should find the post with slug published on given date" do
@@ -37,7 +37,7 @@ describe Article do
     end
   end
 
-  describe "Finding posts with #find_post_by_date_and_slug" do
+  describe "#find_page_by_slug" do
     scenario :blog
 
     it "should find the page with slug" do

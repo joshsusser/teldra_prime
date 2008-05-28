@@ -46,3 +46,16 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
 end
+
+Spec::Runner.configuration.before(:all, :behaviour_type => :controller) do
+  @integrate_views = true
+end
+
+# Sets the current user in the session from the user fixtures.
+def login_as(user)
+  @request.session[:user_id] = user ? users(user).id : nil
+end
+
+def authorize_as(user)
+  @request.env["HTTP_AUTHORIZATION"] = user ? "Basic #{Base64.encode64("#{users(user).login}:test")}" : nil
+end
