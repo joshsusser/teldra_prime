@@ -1,5 +1,10 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
+class AuthenticatedCommentsControllerTest < ActionController::TestCase
+  include AuthenticatedRestfulTests
+  tests Admin::CommentsController
+end
+
 class Admin::CommentsControllerTest < ActionController::TestCase
   scenario :blog
   

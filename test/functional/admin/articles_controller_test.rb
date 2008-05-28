@@ -1,5 +1,10 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
+class AuthenticatedArticlesControllerTest < ActionController::TestCase
+  include AuthenticatedRestfulTests
+  tests Admin::ArticlesController
+end
+
 class Admin::ArticlesControllerTest < ActionController::TestCase
   scenario :basic
   

@@ -50,3 +50,23 @@ class Test::Unit::TestCase
   end
 
 end
+
+module AuthenticatedRestfulTests
+  def test_should_redirect_to_the_the_login_page_if_no_logged_in_user
+    logout
+    get :index
+    assert_redirected_to login_url()
+    get :show, :id => 0
+    assert_redirected_to login_url()
+    get :new
+    assert_redirected_to login_url()
+    get :create
+    assert_redirected_to login_url()
+    get :edit, :id => 0
+    assert_redirected_to login_url()
+    get :update, :id => 0
+    assert_redirected_to login_url()
+    get :destroy, :id => 0
+    assert_redirected_to login_url()
+  end
+end
