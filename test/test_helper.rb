@@ -46,8 +46,7 @@ class Test::Unit::TestCase
 
   def assert_sorted(actual, message=nil, &block)
     expected = actual.sort(&block)
-    message ||= "Expected order:\n#{expected.inspect}\nbut got order:\n#{actual.inspect}\n"
-    assert_block(message) { expected == actual }
+    assert_equal expected, actual, "Order is wrong:"
   end
 
 end
