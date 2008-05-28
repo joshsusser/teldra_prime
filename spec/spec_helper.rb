@@ -53,6 +53,10 @@ end
 
 # Sets the current user in the session from the user fixtures.
 Spec::Rails::Example::ControllerExampleGroup.class_eval do
+  def logout
+    @request.session[:user_id] = nil
+  end
+
   def login_as(user)
     @request.session[:user_id] = user ? users(user).id : nil
   end
@@ -91,5 +95,25 @@ module Spec
         @actual.inspect
       end
     end
+  end
+end
+
+describe "an authenticated, RESTful controller", :shared => true do
+  it "should redirect to the the login page if no logged in user" do
+    logout
+    get :index
+    assert_redirected_to login_url()
+    get :show, :id => 0
+    assert_redirected_to login_url()
+    get :new
+    assert_redirected_to login_url()
+    get :create
+    assert_redirected_to login_url()
+    get :edit, :id => 0
+    assert_redirected_to login_url()
+    get :update, :id => 0
+    assert_redirected_to login_url()
+    get :destroy, :id => 0
+    assert_redirected_to login_url()
   end
 end

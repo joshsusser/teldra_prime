@@ -1,5 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
+describe Admin::CommentsController do
+  it_should_behave_like "an authenticated, RESTful controller"
+end
+
 describe Admin::ArticlesController do
   scenario :basic
 

@@ -1,6 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe Admin::CommentsController do
+  it_should_behave_like "an authenticated, RESTful controller"
+end
+
+describe Admin::CommentsController do
   scenario :blog
 
   before do
@@ -16,7 +20,10 @@ describe Admin::CommentsController do
 
   it "should list all comments in reverse chron order with pagination" do
     welcome = articles(:new_release)
-    100.times { welcome.comments.create(:author_name => "Bob", :body => "Slack off!") }
+    1.upto 100 do |i|
+      comment = welcome.comments.create(:author_name => "Bob", :body => "Slack off!")
+      Comment.update_all("created_at = '#{i.minutes.ago.to_s(:db)}'", "id = #{comment.id}")
+    end
     get :index, :page => 2
     response.should be_success
     assigns[:comments].should have(Comment.per_page).items
