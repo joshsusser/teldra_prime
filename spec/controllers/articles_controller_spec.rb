@@ -3,8 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Admin::ArticlesController do
   scenario :basic
 
-  setup do
-    use_controller Admin::ArticlesController
+  before do
     login_as :admin
   end
 
