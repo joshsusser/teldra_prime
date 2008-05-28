@@ -52,10 +52,44 @@ Spec::Runner.configuration.before(:all, :behaviour_type => :controller) do
 end
 
 # Sets the current user in the session from the user fixtures.
-def login_as(user)
-  @request.session[:user_id] = user ? users(user).id : nil
+Spec::Rails::Example::ControllerExampleGroup.class_eval do
+  def login_as(user)
+    @request.session[:user_id] = user ? users(user).id : nil
+  end
+
+  def authorize_as(user)
+    @request.env["HTTP_AUTHORIZATION"] = user ? "Basic #{Base64.encode64("#{users(user).login}:test")}" : nil
+  end
 end
 
-def authorize_as(user)
-  @request.env["HTTP_AUTHORIZATION"] = user ? "Basic #{Base64.encode64("#{users(user).login}:test")}" : nil
+module Spec
+  module Matchers
+    def sort_by(&block)
+      SortBy.new(&block)
+    end
+
+    class SortBy
+      def initialize(&block)
+        @sort_block = block
+      end
+
+      def matches?(actual)
+        @actual = actual
+        @expected = @actual.sort(&@sort_block)
+        @actual == @expected
+      end
+
+      def failure_message
+        "expected collection in order:\n" +
+        @expected.inspect +
+        "\nbut got order:\n" +
+        @actual.inspect
+      end
+
+      def negative_failure_message
+        "expected collection not to be in order:\n" +
+        @actual.inspect
+      end
+    end
+  end
 end

@@ -34,7 +34,7 @@ describe Tag do
       sf = tags(:san_francisco)
       posts = sf.articles.recent
       posts.should have(sf.articles.size).articles
-      posts.should == posts.sort { |a,b| b.published_at <=> a.published_at }
+      posts.should sort_by { |a,b| b.published_at <=> a.published_at }
     end
   end
 end
