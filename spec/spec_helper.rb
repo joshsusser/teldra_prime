@@ -64,11 +64,11 @@ end
 
 module Spec
   module Matchers
-    def sort_by(&block)
-      SortBy.new(&block)
+    def be_sorted(&block)
+      BeSorted.new(&block)
     end
 
-    class SortBy
+    class BeSorted
       def initialize(&block)
         @sort_block = block
       end

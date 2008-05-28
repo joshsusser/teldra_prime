@@ -20,7 +20,7 @@ describe Tag do
       0.upto(tags.size - 2) { |i| in_order &&= (tags[i].taggings_count >= tags[i+1].taggings_count) }
       in_order.should be_true
     end
-  
+
     it "should not return tags with no taggings" do
       lonely = Tag.create!(:name => "lonely")
       tags = Tag.find_all_popular
@@ -34,7 +34,7 @@ describe Tag do
       sf = tags(:san_francisco)
       posts = sf.articles.recent
       posts.should have(sf.articles.size).articles
-      posts.should sort_by { |a,b| b.published_at <=> a.published_at }
+      posts.should be_sorted { |a,b| b.published_at <=> a.published_at }
     end
   end
 end
