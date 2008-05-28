@@ -25,7 +25,7 @@ class ArticleTest < ActiveSupport::TestCase
       articles = Article.posts.recent
       assert articles.size > 0
       assert articles.all? { |a| a.kind == Article::POST }
-      assert_equal articles.sort {|a,b| b.published_at <=> a.published_at}, articles
+      assert_sorted(articles) { |a,b| b.published_at <=> a.published_at }
     end
 
     def test_should_find_specified_number_of_recent_posts

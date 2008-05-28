@@ -32,6 +32,6 @@ class TagTest < ActiveSupport::TestCase
     sf = tags(:san_francisco)
     posts = sf.articles.recent
     assert_equal sf.articles.size, posts.size
-    assert_equal posts.sort {|a,b| b.published_at <=> a.published_at}, posts
+    assert_sorted(posts) { |a,b| b.published_at <=> a.published_at }
   end
 end

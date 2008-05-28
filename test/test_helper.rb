@@ -44,4 +44,10 @@ class Test::Unit::TestCase
   # Add more helper methods to be used by all tests here...
   include AuthenticatedTestHelper
 
+  def assert_sorted(actual, message=nil, &block)
+    expected = actual.sort(&block)
+    message ||= "Expected order:\n#{expected.inspect}\nbut got order:\n#{actual.inspect}\n"
+    assert_block(message) { expected == actual }
+  end
+
 end
