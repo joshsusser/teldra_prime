@@ -1,8 +1,8 @@
 class Admin::CommentsController < ApplicationController
   layout "admin"
-  
+
   before_filter :login_required
-  
+
   cache_sweeper :article_sweeper, :only => [:destroy]
 
   # GET /admin/comments

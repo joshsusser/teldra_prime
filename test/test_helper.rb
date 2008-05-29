@@ -42,4 +42,31 @@ class Test::Unit::TestCase
   # Add more helper methods to be used by all tests here...
   include AuthenticatedTestHelper
 
+  def assert_sorted(actual, message=nil, &block)
+    expected = actual.sort(&block)
+    assert_equal expected, actual, "Order is wrong:"
+  end
+
+  def self.should_authenticate_restful_actions
+    context "when logged out" do
+      setup { logout }
+      should "redirect any restful action to the login page" do
+        get :index
+        assert_redirected_to login_url()
+        get :show, :id => 0
+        assert_redirected_to login_url()
+        get :new
+        assert_redirected_to login_url()
+        get :create
+        assert_redirected_to login_url()
+        get :edit, :id => 0
+        assert_redirected_to login_url()
+        get :update, :id => 0
+        assert_redirected_to login_url()
+        get :destroy, :id => 0
+        assert_redirected_to login_url()
+      end
+    end
+  end
+
 end
