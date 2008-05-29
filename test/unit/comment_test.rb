@@ -5,7 +5,7 @@ class CommentTest < Test::Unit::TestCase
 
   should_belong_to :user
   should_require_attributes :body
-  
+
   context "#presentation_class" do
     should "show presentation_class for guest" do
       comment = comments(:stranger_welcome)

@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   belongs_to :article, :counter_cache => true
   belongs_to :user
-  
+
   validates_existence_of :article
   validates_existence_of :user, :allow_nil => true
   validates_presence_of :author_name,  :unless => :user_id?

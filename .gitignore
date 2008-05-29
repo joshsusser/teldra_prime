@@ -2,3 +2,4 @@
 config/database.yml
 routes.txt
 log/*.log
+coverage/*
