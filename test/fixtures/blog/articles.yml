@@ -46,8 +46,8 @@ update:
   comment_period: 30
   comments_count: 0
   created_at: <%= 8.days.ago.to_s :db %>
-  updated_at: <%= 6.days.ago.to_s :db %>
-  published_at: <%= 6.days.ago.to_s :db %>
+  updated_at: <%= 7.days.ago.to_s :db %>
+  published_at: <%= 7.days.ago.to_s :db %>
 new_release:
   kind: 0
   user: admin
@@ -57,9 +57,9 @@ new_release:
   extended: Download it now.
   comment_period: -1
   comments_count: 0
-  created_at: <%= 5.days.ago.to_s :db %>
-  updated_at: <%= 5.days.ago.to_s :db %>
-  published_at: <%= 5.days.ago.to_s :db %>
+  created_at: <%= 6.days.ago.to_s :db %>
+  updated_at: <%= 6.days.ago.to_s :db %>
+  published_at: <%= 6.days.ago.to_s :db %>
 goodbye:
   kind: 0
   user: admin
@@ -72,3 +72,27 @@ goodbye:
   created_at: <%= 5.days.ago.to_s :db %>
   updated_at: <%= 5.days.ago.to_s :db %>
   published_at: <%= 5.days.ago.to_s :db %>
+really:
+  kind: 0
+  user: admin
+  slug: goodbye
+  title: Goodbye
+  body: goodbye body
+  comment_period: 0
+  comments_count: 0
+  extended: 
+  created_at: <%= 4.days.ago.to_s :db %>
+  updated_at: <%= 4.days.ago.to_s :db %>
+  published_at: <%= 4.days.ago.to_s :db %>
+i_mean_it:
+  kind: 0
+  user: admin
+  slug: goodbye
+  title: Goodbye
+  body: goodbye body
+  comment_period: 0
+  comments_count: 0
+  extended: 
+  created_at: <%= 3.days.ago.to_s :db %>
+  updated_at: <%= 3.days.ago.to_s :db %>
+  published_at: <%= 3.days.ago.to_s :db %>
