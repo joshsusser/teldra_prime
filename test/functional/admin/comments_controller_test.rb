@@ -15,8 +15,9 @@ class Admin::CommentsControllerTest < ActionController::TestCase
       should_render_template "index"
       should_assign_to :comments
       should_not_assign_to :article
-      should "return all comments" do
+      should "return all comments in reverse chron order" do
         assert_equal Comment.count, assigns(:comments).size
+        assert_sorted(assigns(:comments)) { |a,b| b.created_at <=> a.created_at }
       end
     end
 
@@ -30,7 +31,7 @@ class Admin::CommentsControllerTest < ActionController::TestCase
     context "DELETE /admin/comments/:id" do
       setup do
         @comment = comments(:stalker_welcome)
-        get :destroy, :id => @comment.id
+        delete :destroy, :id => @comment.id
       end
       should_not_set_the_flash
       should_redirect_to "admin_comments_url"
