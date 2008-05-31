@@ -6,56 +6,56 @@ describe BlogController do
   describe "basic viewing" do
     it "should show archives in index view" do
       get :index
-      assert_not_nil assigns(:archives)
-      assert_select "ul#archives" do
-        assert_select "li a[href=#{post_path(*articles(:welcome).post_path_params)}]"
+      assigns(:archives).should_not be_nil
+      response.should have_tag("ul#archives") do
+        with_tag "li a[href=#{post_path(*articles(:welcome).post_path_params)}]"
       end
     end
 
     it "should not show meta section on Page view" do
       about = articles(:about)
       post :page, :slug => about.slug
-      assert_response :success
-      assert_template 'show'
-      assert_select 'ul.meta', false
+      response.should be_success
+      response.should render_template('show')
+      response.should_not have_tag('p.meta')
     end
 
     it "should show meta section on Post view" do
       welcome = articles(:welcome)
       year, month, day, slug = *welcome.post_path_params
       post :show, :year => year, :month => month, :day => day, :slug => slug
-      assert_response :success
-      assert_template 'show'
-      assert_select 'p.meta'
+      response.should be_success
+      response.should render_template('show')
+      response.should have_tag('p.meta')
     end
 
     it "should not show comments on Page view" do
       about = articles(:about)
       post :page, :slug => about.slug
-      assert_response :success
-      assert_template 'show'
-      assert_select 'ol#comments', false
+      response.should be_success
+      response.should render_template('show')
+      response.should_not have_tag('ol#comments')
     end
 
     it "should show comments on Post view" do
       welcome = articles(:welcome)
       year, month, day, slug = *welcome.post_path_params
       post :show, :year => year, :month => month, :day => day, :slug => slug
-      assert_response :success
-      assert_template 'show'
-      assert_select 'ol#comments'
+      response.should be_success
+      response.should render_template('show')
+      response.should have_tag('ol#comments')
     end
 
     it "should list all tags that have articles" do
       tags = Tag.find_all_popular
       get :tags
-      assert_equal tags, assigns(:tags)
+      assigns(:tags).should == tags
     end
 
     it "should list recent articles for a tag" do
       tag = tags(:meta)
       get :tag, :tag => tag.name
-      assert_equal tag.articles.recent, assigns(:articles)
+      assigns(:articles).should == tag.articles.recent
     end
   end
 
@@ -67,19 +67,19 @@ describe BlogController do
 
     it "should return search results" do
       get :search, :q => "body"
-      assert_template "results"
-      assert_not_nil assigns(:articles)
+      response.should render_template('results')
+      assigns(:articles).should_not be_empty
     end
 
     it "should return empty results for blank query" do
       get :search, :q => ""
-      assert_template "results"
-      assert_equal [], assigns(:articles)
+      response.should render_template('results')
+      assigns(:articles).should be_empty
     end
 
     it "should show tags in tag cloud" do
       get :index
-      assert_not_nil assigns(:tag_cloud)
+      assigns(:tag_cloud).should_not be_empty
       assert_select "p#tags"
     end
   end
