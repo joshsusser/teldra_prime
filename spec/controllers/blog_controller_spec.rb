@@ -62,7 +62,7 @@ describe BlogController do
   describe "sidebar" do
     it "should show search box" do
       get :index
-      assert_select "div#search input#q"
+      response.should have_tag("div#search input#q")
     end
 
     it "should return search results" do
@@ -80,28 +80,26 @@ describe BlogController do
     it "should show tags in tag cloud" do
       get :index
       assigns(:tag_cloud).should_not be_empty
-      assert_select "p#tags"
+      response.should have_tag("p#tags")
     end
   end
 
   describe "entering new comment" do
     it "should create new comment on Post view" do
       update_post = articles(:update)
-      assert_difference('Comment.count') do
-        assert_difference('update_post.comments.count') do
-          post :create_comment, :article_id => update_post.to_param, :comment => comment_options
-        end
-      end
+      lambda do
+        post :create_comment, :article_id => update_post.to_param, :comment => comment_options
+      end.should change(Comment, :count)
 
-      assert_redirected_to post_path(*assigns(:article).post_path_params)
+      response.should redirect_to(post_path(*assigns(:article).post_path_params))
 
       # should be follow_redirect
       ps = update_post.post_path_params
       get :show, :year => ps[0], :month => ps[1], :day => ps[2], :slug => ps[3]
 
       new_comment = Comment.find_by_author_name(comment_options[:author_name])
-      assert !new_comment.author_ip.blank?
-      assert_select "li#comment_#{new_comment.id}"
+      new_comment.author_ip.should_not be_blank
+      response.should have_tag("li#comment_#{new_comment.id}")
     end
 
     it "should not create new comment on spammy submission" do
@@ -114,18 +112,18 @@ describe BlogController do
         end
       end
 
-      assert_redirected_to post_path(*assigns(:article).post_path_params)
+      response.should redirect_to(post_path(*assigns(:article).post_path_params))
     end
 
     it "should set user_id of logged in author on comment creation" do
       update_post = articles(:update)
 
       post :create_comment, :article_id => update_post.to_param, :comment => comment_options
-      assert_nil assigns(:comment).user_id
+      assigns(:comment).user_id.should be_nil
 
       login_as(:admin)
       post :create_comment, :article_id => update_post.to_param, :comment => comment_options
-      assert_equal users(:admin).id, assigns(:comment).user_id
+      assigns(:comment).user_id.should == users(:admin).id
     end
 
     def comment_options(options = {})
@@ -143,25 +141,25 @@ describe BlogController do
 
     it "should respond to main atom feed request with atom xml document" do
       get :index, :format => 'atom'
-      assert_equal ATOM_CONTENT_TYPE, @response.headers["type"]
-      assert_select "entry", assigns(:articles).size
+      response.headers["type"].should == ATOM_CONTENT_TYPE
+      response.should have_tag("entry", assigns(:articles).size)
     end
 
     it "should respond to tag atom feed request with atom xml document" do
       get :tag, :tag => 'meta', :format => 'atom'
-      assert_equal ATOM_CONTENT_TYPE, @response.headers["type"]
-      assert_select "entry", assigns(:articles).size
+      response.headers["type"].should == ATOM_CONTENT_TYPE
+      response.should have_tag("entry", assigns(:articles).size)
     end
 
     it "should respond with 404 for a non-existent tag feed" do
       get :tag, :tag => 'meat', :format => 'atom'
-      assert_response :not_found
+      response.code.should == "404"
     end
 
     it "should not load sidebar data for atom feeds" do
       get :index, :format => 'atom'
-      assert_nil assigns(:tag_cloud)
-      assert_nil assigns(:archives)
+      assigns(:tag_cloud).should be_nil
+      assigns(:archives).should be_nil
     end
   end
 end
