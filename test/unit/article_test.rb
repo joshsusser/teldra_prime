@@ -33,8 +33,8 @@ class ArticleTest < Test::Unit::TestCase
     end
   end
 
-  context "Finding posts with #find_post_by_date_and_slug" do
-    should "find the page with slug" do
+  context "Finding posts with #find_page_by_slug" do
+    should "find the page with the slug" do
       about = articles(:about)
       page = Article.find_page_by_slug(about.slug)
       assert_equal about, page
